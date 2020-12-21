@@ -1,5 +1,8 @@
 import {gql} from 'apollo-server-express'
 
+/**
+ * product type definition
+ */
 export const ProductType = `
     type Query {
         product: [Product],

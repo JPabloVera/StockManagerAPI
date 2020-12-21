@@ -2,7 +2,9 @@ import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt'
 
 const salt_round = parseInt(process.env.SALT_WORK_FACTOR)
-
+/* 
+    Moongose model definition
+ */
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
@@ -11,7 +13,9 @@ const userSchema = new mongoose.Schema({
     gender: String
 })
 
-
+/* 
+    executes function before a object is saved in the db, in this case we hash the passwords of a new user
+*/
 userSchema.pre('save',function(next){
     try{
 
@@ -38,6 +42,9 @@ userSchema.pre('save',function(next){
     
 })
 
+/* 
+    check that the password is valid
+*/
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
     try{
         

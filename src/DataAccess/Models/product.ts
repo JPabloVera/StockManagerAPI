@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose';
-
+ /* 
+    Moongose model definition
+ */
 const productModel = new mongoose.Schema({
     productName: String,
     cost: Number,

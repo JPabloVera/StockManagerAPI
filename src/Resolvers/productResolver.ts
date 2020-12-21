@@ -1,27 +1,39 @@
 import MongoDataSource from '../DataAccess/DataSources/mongoDataSource'
 import {authorizationError} from '../Services/authService'
+import product from '../Interfaces/Product'
 
+/* 
+Product resolver definition
+*/
 export default  {
-    //query
-        product: async (parent,args,{userIsVerified,dataSources},info) => {
+        /**
+         * if there is a valid token returns a product of the db
+         */
+        product: async (parent:void ,args : void,{userIsVerified,dataSources},info: void)  : Promise<Array<product>>=> {
             //basic auth on the resolver
             if(userIsVerified){
-                return await dataSources.db.getProducts(args)
+                return await dataSources.db.getProducts()
             }else{
                 throw new authorizationError()
             }
         },
-        productByName: async (parent,{product},{userIsVerified,dataSources},info) => {
+         /**
+         * if there is a valid token returns a product of the db by the name
+         */
+        productByName: async (parent: void,{productName} : product,{userIsVerified,dataSources},info: void) => {
             //basic auth on the resolver
             if(userIsVerified){
-               return await dataSources.db.productByName(product)
+               return await dataSources.db.productByName(productName)
             }else{
                 throw new authorizationError()
             }
         },
-        addProduct: async (parent,args,{userIsVerified,dataSources},info) =>{
+         /**
+         * if there is a valid token add a product to the db
+         */
+        addProduct: async (parent: void,{productName, cost, price, idealStock, minimunStock}: product,{userIsVerified,dataSources},info: void) =>{
             if(userIsVerified){
-                return await dataSources.db.addProduct(args)
+                return await dataSources.db.addProduct({productName, cost, price, idealStock, minimunStock})
             }else{
                 throw new authorizationError()
             }

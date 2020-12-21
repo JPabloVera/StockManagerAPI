@@ -1,5 +1,8 @@
 import {gql} from 'apollo-server-express'
 
+/**
+ * we define the user type
+ */
 export const UserType = `
     extend type Query{
         login(user: RegisterUser): User
